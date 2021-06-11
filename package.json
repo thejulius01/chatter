@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
+    "start": "node app",
+    "dev": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,12 @@
     "url": "https://github.com/ngrt/simpleChatApp/issues"
   },
   "homepage": "https://github.com/ngrt/simpleChatApp#readme",
+  "devDependencies": {
+    "nodemon": "^1.14.3"
+  },
   "dependencies": {
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "nodemon": "^1.14.3",
     "socket.io": "^2.0.4"
   }
 }
