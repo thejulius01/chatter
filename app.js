@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 })
 
 //Listen on port 3000
-server = app.listen(3000)
+server = app.listen(80)
 
 
 
