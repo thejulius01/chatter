@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
 })
 
 //Listen on port 3000
-server = app.listen(80)
+const listningPort = process.env.DEV_PORT || 80;
+server = app.listen(listningPort, _ => {
+    console.log('Listening on port ', listningPort);
+})
 
 
 

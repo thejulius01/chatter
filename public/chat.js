@@ -1,35 +1,37 @@
-
-$(function(){
+window.onload = function(){
    	//make connection
-	var socket = io.connect('http://localhost:3000')
+	var socket = io.connect('http://localhost:80')
 
 	//buttons and inputs
-	var message = $("#message")
-	var username = $("#username")
-	var send_message = $("#send_message")
-	var send_username = $("#send_username")
-	var chatroom = $("#chatroom")
-	var feedback = $("#feedback")
+	var message = document.getElementById('message');
+	var username = document.getElementById("username")
+	var send_message = document.getElementById("send_message")
+	var send_username = document.getElementById("send_username")
+	var chatroom = document.getElementById("chatroom")
+	var feedback = document.getElementById("feedback")
 
 	//Emit message
-	send_message.click(function(){
-		socket.emit('new_message', {message : message.val()})
-	})
+	send_message.onclick = function() {
+		socket.emit('new_message', { message : message.value })
+	}
 
 	//Listen on new_message
 	socket.on("new_message", (data) => {
-		feedback.html('');
-		message.val('');
-		chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>")
+		feedback.innerHTML = '';
+		message.value = '';
+		const paragraph = document.createElement('p');
+		paragraph.className = 'message';
+		paragraph.innerText =  data.username + ": " + data.message 
+		chatroom.appendChild(paragraph)
 	})
 
 	//Emit a username
-	send_username.click(function(){
-		socket.emit('change_username', {username : username.val()})
-	})
+	send_username.onclick = function(){
+		socket.emit('change_username', { username : username.value })
+	}
 
 	//Emit typing
-	message.bind("keypress", () => {
+	message.addEventListener("keypress", () => {
 		socket.emit('typing')
 	})
 
@@ -37,6 +39,6 @@ $(function(){
 	socket.on('typing', (data) => {
 		feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>")
 	})
-});
+};
 
 
